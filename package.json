@@ -1,0 +1,43 @@
+{
+  "name": "yaml-ts",
+  "version": "1.0.0",
+  "description": "",
+  "source": "./src/index.ts",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "typings": "./lib/types/index.d.ts",
+  "exports": {
+    "types": "./lib/types/index.d.ts",
+    "import": "./lib/esm/index.js",
+    "require": "./lib/cjs/index.js",
+    "default": "./lib/esm/index.js"
+  },
+  "scripts": {
+    "clean": "rimraf lib",
+    "lint": "eslint \"src/**/*.ts\"",
+    "build": "concurrently \"npm:build:esm\" \"npm:build:cjs\"",
+    "build:cjs": "tsc --build tsconfig.compile.cjs.json",
+    "build:esm": "tsc --build tsconfig.compile.esm.json",
+    "prepack": "npm run clean && npm run build",
+    "prepare": "husky install"
+  },
+  "keywords": [
+    "YAML",
+    "configuration",
+    "environment"
+  ],
+  "author": "Victor Grk",
+  "license": "MIT",
+  "dependencies": {
+    "yaml": "^2.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.6.5",
+    "@typescript-eslint/eslint-plugin": "^5.33.0",
+    "concurrently": "^7.3.0",
+    "eslint": "^8.21.0",
+    "husky": "^8.0.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.7.4"
+  }
+}
