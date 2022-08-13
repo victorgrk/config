@@ -1,11 +1,11 @@
-# Yaml-env
+# Yml-conf-env
 
 > This lib allows you to load yaml files with environement injection for an easy app config management.
 
 ## Install
 
 ```sh
-npm i --save yaml-env
+npm i --save yml-conf-env
 ```
 
 ## How to use
@@ -27,7 +27,7 @@ foo:
 ### Typescript
 
 ```typescript
-import { loadConfiguration } from "yaml-env";
+import { loadConfiguration } from "yml-conf-env";
 
 interface Configuration {
   name: string;
@@ -47,11 +47,11 @@ export const config = loadConfiguration<Configuration>("config.yml");
 
 ```javascript
 // ESM
-import { loadConfiguration } from "yaml-env";
+import { loadConfiguration } from "yml-conf-env";
 export const config = loadConfiguration("config.yml");
 
 // CommonJS
-const { loadConfiguration } = require("yaml-env");
+const { loadConfiguration } = require("yml-conf-env");
 const config = loadConfiguration("config.yml");
 module.exports = config;
 ```

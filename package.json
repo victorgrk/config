@@ -1,5 +1,5 @@
 {
-  "name": "yaml-env",
+  "name": "yml-conf-env",
   "version": "1.0.0",
   "description": "Yaml wrapper to automatically load configurations and populate environement variables",
   "source": "./src/index.ts",
