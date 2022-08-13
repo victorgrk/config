@@ -1,0 +1,6 @@
+{
+  "test": 1,
+  "map": {
+    "hello": "{{ env.CODE }}"
+  }
+}

@@ -1,0 +1,16 @@
+test: 1
+map:
+  code: azerty
+  name: test://{{ env.CODE }}
+  array:
+    - test://{{ env.CODE }}
+    - test://{{ env.CODE }}
+rabbit:
+  hosts:
+    - amqp://{{ env.CODE }}
+
+templates:
+  - name: test
+    value: "HELLO"
+  - name: test2
+    value: "BIJOUR {{ env.HELLO }}"
