@@ -1,7 +1,7 @@
 {
-  "name": "yaml-ts",
+  "name": "yaml-env",
   "version": "1.0.0",
-  "description": "",
+  "description": "Yaml wrapper to automatically load configurations and populate environement variables",
   "source": "./src/index.ts",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
