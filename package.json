@@ -33,7 +33,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/victorgrk/yaml-env"
+    "url": "https://github.com/victorgrk/config"
+  },
+  "bugs": {
+    "url": "https://github.com/victorgrk/config/issues"
   },
   "dependencies": {
     "yaml": "^2.1.1"

@@ -1,14 +1,16 @@
-# Yml-conf-env
+# @vicgrk/config
 
 > This lib allows you to load yaml files with environement injection for an easy app config management.
 
 ## Install
 
 ```sh
-npm i --save yml-conf-env
+npm i --save @vicgrk/config
 ```
 
 ## How to use
+
+This library will automatically load a .env file and inject it into your project environment.
 
 ### Configuration file
 
@@ -27,7 +29,7 @@ foo:
 ### Typescript
 
 ```typescript
-import { loadConfiguration } from "yml-conf-env";
+import { loadConfiguration } from "@vicgrk/config";
 
 interface Configuration {
   name: string;
@@ -47,11 +49,24 @@ export const config = loadConfiguration<Configuration>("config.yml");
 
 ```javascript
 // ESM
-import { loadConfiguration } from "yml-conf-env";
+import { loadConfiguration } from "@vicgrk/config";
 export const config = loadConfiguration("config.yml");
 
 // CommonJS
-const { loadConfiguration } = require("yml-conf-env");
+const { loadConfiguration } = require("@vicgrk/config");
 const config = loadConfiguration("config.yml");
 module.exports = config;
+```
+
+## Load other .env files
+
+When loading your configuration, you can pass a list of env files as an array. This example
+will try to load 3 env files at the root of your project
+
+```javascript
+const config = loadConfiguration("config.yml", [
+  ".env",
+  ".env.dev",
+  ".env.prod",
+]);
 ```
