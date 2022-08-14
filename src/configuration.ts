@@ -1,10 +1,11 @@
 import { existsSync, readFileSync } from 'fs'
 import { parse } from 'yaml'
 import { FileNotFoundError, InvalidJSONError, InvalidYAMLError } from './errors'
-import { getFilePath } from './helpers'
+import { getFilePath, loadEnvironments } from './helpers'
 import { parser } from './parser'
 
-export function loadConfiguration<T>(configName: string) {
+export function loadConfiguration<T>(configName: string, envFiles?: string[]): T {
+  loadEnvironments(envFiles)
   const filePath = getFilePath(configName)
   if (!existsSync(filePath)) {
     throw new FileNotFoundError(configName)
@@ -24,8 +25,9 @@ export function loadConfiguration<T>(configName: string) {
       throw new InvalidYAMLError(configName)
     }
   }
-  if (config) {
-    return parser(config)
+  try {
+    return <T>parser(config)
+  } catch (err) {
+    throw new Error(err)
   }
-  return null
 }
