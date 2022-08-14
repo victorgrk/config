@@ -1,5 +1,8 @@
 {
-  "name": "yml-conf-env",
+  "name": "@vicgrk/config",
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "1.0.0",
   "description": "Yaml wrapper to automatically load configurations and populate environement variables",
   "source": "./src/index.ts",
