@@ -7,10 +7,12 @@ map:
     - test://{{ env.CODE }}
 rabbit:
   hosts:
-    - amqp://{{ env.CODE }}
-
+    - "{{env.CODE}}"
+values: "{{ env.CODE2 }}"
 templates:
   - name: test
     value: "HELLO"
   - name: test2
     value: "BIJOUR {{ env.HELLO }}"
+  - name: test3
+    value: "{{ env.HELLO }}"

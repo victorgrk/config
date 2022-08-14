@@ -39,7 +39,20 @@ function populater(value: any) {
       const envToInject = process.env[env.replace('env.', '')] || ''
       temp = temp.replace(env, envToInject).replace(/{{\s*/g, '').replace(/\s*}}/g, '')
     }
-    return temp
+    if (temp.match(/^\d+n$/gi)) {
+      return BigInt(temp.replace('n', ''))
+    } else if (!isNaN(Number(temp))) {
+      return Number(temp)
+    } else if (temp === 'true' || temp === 'false') {
+      return temp === 'true'
+    } else if (temp === 'null') {
+      return null
+    } else if (temp === 'undefined') {
+      return undefined
+    }
+    else {
+      return temp
+    }
   } else {
     return value
   }
