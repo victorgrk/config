@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Yaml wrapper to automatically load configurations and populate environement variables",
   "source": "./src/index.ts",
   "main": "./lib/cjs/index.js",
