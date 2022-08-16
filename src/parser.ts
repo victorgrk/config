@@ -32,16 +32,18 @@ function reducer(value: Array<any>) {
 function populater(value: any) {
   if (typeof value === 'string') {
     let temp: string = value
-    const regex = new RegExp(/{{\s*(env\.[0-9A-Z_]+)\s*}}/gim)
+    const regex = new RegExp(/{\s*{\s*(env\.[0-9A-Z_]+):?(.*)\s*}\s*}/gim)
     let m: RegExpMatchArray | null = null
     while ((m = regex.exec(temp)) !== null) {
-      const [, env] = m
-      const envToInject = process.env[env.replace('env.', '')] || ''
-      temp = temp.replace(env, envToInject).replace(/{{\s*/g, '').replace(/\s*}}/g, '')
+      let [base, env, defaultValue] = m
+      env = env.replace('env.', '')
+      defaultValue = defaultValue?.trim()
+      const envToInject = process.env[env] || defaultValue || ''
+      temp = temp.replace(base, envToInject).trim()
     }
     if (temp.match(/^\d+n$/gi)) {
       return BigInt(temp.replace('n', ''))
-    } else if (!isNaN(Number(temp))) {
+    } else if (temp !== '' && !isNaN(Number(temp))) {
       return Number(temp)
     } else if (temp === 'true' || temp === 'false') {
       return temp === 'true'

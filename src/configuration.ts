@@ -4,8 +4,13 @@ import { FileNotFoundError, InvalidJSONError, InvalidYAMLError } from './errors'
 import { getFilePath, loadEnvironments } from './helpers'
 import { parser } from './parser'
 
+let hasLoadedEnvironment = false
+
 export function loadConfiguration<T>(configName: string, envFiles?: string[]): T {
-  loadEnvironments(envFiles)
+  if (!hasLoadedEnvironment) {
+    hasLoadedEnvironment = true
+    loadEnvironments(envFiles)
+  }
   const filePath = getFilePath(configName)
   if (!existsSync(filePath)) {
     throw new FileNotFoundError(configName)
