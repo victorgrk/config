@@ -33,7 +33,7 @@ function populater(value: any) {
   if (typeof value === 'string') {
     let temp: string = value
     const regex = new RegExp(/{\s*{\s*(env\.[0-9A-Z_]+):?(.*)\s*}\s*}/gim)
-    let m: RegExpMatchArray | null = null
+    let m: RegExpExecArray | null = null
     while ((m = regex.exec(temp)) !== null) {
       let [base, env, defaultValue] = m
       env = env.replace('env.', '')
@@ -43,7 +43,7 @@ function populater(value: any) {
     }
     if (temp.match(/^\d+n$/gi)) {
       return BigInt(temp.replace('n', ''))
-    } else if (temp !== '' && !isNaN(Number(temp))) {
+    } else if (temp !== '' && !isNaN(Number(temp)) && Number.isSafeInteger(Number(temp))) {
       return Number(temp)
     } else if (temp === 'true' || temp === 'false') {
       return temp === 'true'

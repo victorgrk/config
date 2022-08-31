@@ -1,6 +1,6 @@
 test: 1
 map:
-  code: azerty
+  code: "90071992547409963"
   name: test://{{ env.CODE:TEST_DEFAULT_VALUE }}
   array:
     - test://{{ env.CODE:OTHER_VALUE }}
