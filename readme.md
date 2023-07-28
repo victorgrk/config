@@ -103,6 +103,62 @@ REDIS_PORT=6379
 
 You can also provide default values for your environment variables with `{{ env.MY_ENVIRONMENT:default_value }}`
 
+## Current working directory
+
+Weither its trying to look to a sqlite file or a directory where to put uploaded files, applications' config need often to point to filesystem directories or files. I added a `cwd()` function in the parser to dynamicly inject an absolute path in your application.
+
+Thus the config file :
+```yml
+upload:
+  images_folder: "{{ cwd() }}/upload/images"
+```
+with this TS file :
+```ts
+import { loadConfiguration } from "@vicgrk/config";
+
+interface Configuration {
+  upload: {
+    images_folder: string;
+  };
+}
+
+export const config = loadConfiguration<Configuration>("config.yml");
+console.log(config.upload.images_folder); // equal /app/upload/images (if you're running you're process from /app)
+```
+
+## prod function
+
+Some configuration does need to be a secret, like client IDs (and NOT client secrets, please these are called secrets for a reason) from oauth providers, but varies in developpement or production mode. I've added a `prod` function in the parser. There are two utilization type :
+- The simple prod function `{{ prod() }}` will return true or false based on the NODE_ENV environment variable is equal to production or prod
+- The ternary prod function `{{ prod() }}` will return the first (truthy value), or the second argument (falsy value) based on the NODE_ENV environment variable is equal to production or prod
+
+Thus the config file :
+```yml
+isProduction:
+  simple: "{{ prod() }}"
+  ternary: "{{ prod('this is a true value', 'this is the false value') }}"
+```
+
+with this TS file :
+```ts
+import { loadConfiguration } from "@vicgrk/config";
+
+interface Configuration {
+  isProduction: {
+    simple: string;
+    ternary: string;
+  };
+}
+
+export const config = loadConfiguration<Configuration>("config.yml");
+
+// if process.env.NODE_ENV === 'dev'
+console.log(config); // equal { isProduction: { simple: false, ternary: 'this is the false value' } }
+
+// if process.env.NODE_ENV === 'production' or process.env.NODE_ENV === 'prod'
+console.log(config); // equal { isProduction: { simple: true, ternary: 'this is a true value' } }
+```
+
 ## Type convertion
 
 All string values present in your configuration are converted in numbers, boolean, according to this table

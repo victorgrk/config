@@ -1,10 +1,12 @@
 test: 1
 map:
   code: "90071992547409963"
+  storage: "{{ cwd() }}/{{ prod('dist', 'src') }}/assets"
   name: test://{{ env.CODE:TEST_DEFAULT_VALUE }}
   array:
     - test://{{ env.CODE:OTHER_VALUE }}
     - test://{{ env.CODE }}
+    - "{{ prod() }}"
 rabbit:
   hosts:
     - "{{env.CODE}}"
