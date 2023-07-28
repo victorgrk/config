@@ -128,9 +128,9 @@ console.log(config.upload.images_folder); // equal /app/upload/images (if you're
 
 ## prod function
 
-Some configuration does need to be a secret, like client IDs (and NOT client secrets, please these are called secrets for a reason) from oauth providers, but varies in developpement or production mode. I've added a `prod` function in the parser. There are two utilization type :
+Some configuration does need to be a secret, like client IDs (and NOT client secrets, these are called secrets for a reason) from oauth providers, but varies in developpement or production mode. I've added a `prod` function in the parser. There are two utilization type :
 - The simple prod function `{{ prod() }}` will return true or false based on the NODE_ENV environment variable is equal to production or prod
-- The ternary prod function `{{ prod() }}` will return the first (truthy value), or the second argument (falsy value) based on the NODE_ENV environment variable is equal to production or prod
+- The ternary prod function `{{ prod('truthy', 'falsy') }}` will return the first (truthy value), or the second argument (falsy value) based on the NODE_ENV environment variable is equal to production or prod
 
 Thus the config file :
 ```yml
